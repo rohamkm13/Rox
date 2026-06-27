@@ -111,7 +111,7 @@ The Calendar page gives you a clean monthly view to track dates, plan tasks, and
 📸 Screenshots
 
 <img src="Desktop-ScreenShot.png" />
-<img src="Mobile-ScreenShot.png" />
+
 
 ---
 
