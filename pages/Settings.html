@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../pages styles/setting.css">
+    <script src="../src/translate.js"></script>
+</head>
+<body>
+   <div id="page-content">
+        <div class="settings-card glass" id="settings-page">
+
+
+    <!-- <div class="settings-list">
+        <div class="setting-item">
+            <div class="setting-info">
+                <i class="fa fa-moon"></i>
+                <span data-i18n="appearance">Appearance</span>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <div class="theme-ball"></div>
+                <i class="fa fa-sun"></i>
+                <i class="fa fa-moon"></i>
+            </div>
+        </div> -->
+<!-- 
+        <div class="setting-item">
+            <div class="setting-info">
+                <i class="fa fa-language"></i>
+                <span data-i18n="langName">Language</span>
+            </div>
+            <div class="language-buttons">
+                <button class="lang-btn" data-lang="en" type="button" onclick="changeLanguage('en')">English <img src="Usa.png" alt="" style="width: 12px; height: 10px;"></button>
+                <button class="lang-btn" data-lang="fa" type="button" onclick="changeLanguage('fa')">فارسی <img src="IranFlag.jpg" alt="" style="width: 12px; height: 10px;"></button>
+            </div>
+        </div> -->
+
+        <!-- <div class="setting-item">
+            <div class="setting-info">
+                <i class="fa fa-palette"></i>
+                <span data-i18n="accentColor">Accent Color</span>
+            </div>
+            <div class="color-options">
+                <span class="dot blue active" onclick="setAccent('#3b82f6', this)"></span>
+                <span class="dot purple" onclick="setAccent('#a855f7', this)"></span>
+                <span class="dot green" onclick="setAccent('#10b981', this)"></span>
+            </div>
+        </div>
+    </div>
+</div> -->
+   </div>
+
+   <script>
+// ------------------------------------------------------------
+// ۲. تغییر زبان (با اعمال جهت صفحه)
+// 2. Change language (with page direction handling)
+// ------------------------------------------------------------
+function changeLanguage(lang) {
+
+    // ذخیره زبان انتخاب‌شده در localStorage
+    // Save selected language in localStorage
+    localStorage.setItem('lang', lang);
+
+    // آپدیت متن‌ها اگر تابع وجود داشته باشد
+    // Update UI texts if function exists
+    if (typeof updateTexts === 'function') updateTexts(lang);
+
+    // فعال کردن دکمه زبان انتخاب‌شده
+    // Toggle active state on selected language button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+
+// ------------------------------------------------------------
+// فعال کردن دکمه زبان هنگام لود
+// Set active language button on load
+// ------------------------------------------------------------
+function setLanguageButtonActive(lang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+}
+
+
+// ------------------------------------------------------------
+// ۳. تغییر رنگ اصلی (Accent)
+// 3. Change accent color
+// ------------------------------------------------------------
+function setAccent(color, el) {
+
+    // تغییر مقدار متغیر CSS برای رنگ اصلی
+    // Update CSS variable for accent color
+    document.documentElement.style.setProperty('--accent-color', color);
+
+    // حذف active از همه دایره‌ها
+    // Remove active class from all dots
+    document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+
+    // فعال کردن دایره انتخاب‌شده
+    // Activate selected dot
+    el.classList.add('active');
+
+    // ذخیره رنگ انتخاب‌شده
+    // Save selected accent color
+    localStorage.setItem('accent', color);
+}
+
+
+// ------------------------------------------------------------
+// لود زبان و رنگ هنگام شروع
+// Load language and accent on initialization
+// ------------------------------------------------------------
+(function initSettings() {
+
+    // دریافت زبان ذخیره‌شده یا پیش‌فرض انگلیسی
+    // Get saved language or default to English
+    const savedLang = localStorage.getItem('lang') || 'en';
+
+    // لود فایل زبان سپس اعمال تنظیمات
+    // Load language data then apply settings
+    loadLanguageData().then(() => {
+
+        // اعمال زبان ذخیره‌شده
+        // Apply saved language
+        changeLanguage(savedLang);
+
+        // فعال کردن دکمه زبان
+        // Set active language button
+        setLanguageButtonActive(savedLang);
+
+        // دریافت رنگ ذخیره‌شده
+        // Get saved accent color
+        const savedAccent = localStorage.getItem('accent');
+
+        // اگر رنگ ذخیره شده بود، اعمال کن
+        // Apply saved accent color if exists
+        if (savedAccent)
+            document.documentElement.style.setProperty('--accent-color', savedAccent);
+    });
+
+})();
+   </script>
+ 
+</body>
+</html>

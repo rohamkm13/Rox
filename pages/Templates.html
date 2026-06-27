@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates</title>
+    <link rel="stylesheet" href="../pages styles/projects.css">
+</head>
+<body>
+   <div id="page-content">
+        
+<section class="projects-index">
+    <div class="interests glass" id="interests">
+        <div class="interests-head">
+            <h3 data-i18n="filterTemplates">Filter Templates</h3>
+            <span class="interests-selected" id="interestsSelected" data-i18n="allLabel">All</span>
+        </div>
+        <div class="interests-chips" id="interestsChips"></div>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid"></div>
+</section>
+      
+
+     
+  </div>
+<script>
+(function() {
+  const data = (typeof APP_DATA !== 'undefined' && APP_DATA.templates) ? APP_DATA.templates : [];
+
+
+
+// ۱. تابع رندر کردن کارت‌های تمپلیت
+function renderProjects(filteredList) {
+    const container = document.getElementById('projectsGrid');
+    if (!container) return;
+    const displayList = filteredList || data;
+
+    const favIds = JSON.parse(localStorage.getItem('myFavorites') || '[]');
+    const isFav = id => favIds.some(f => (typeof f === 'object' ? f.id : f) === id);
+
+    container.innerHTML = displayList.map(p => `
+        <div class="project-card">
+            <div class="card-header">
+                <img src="${p.img}" alt="${p.title}">
+                <button class="fav-btn ${isFav(p.id) ? 'fav-btn-active' : ''}" onclick="addToFav('${p.id}')">
+                    <i class="fa${isFav(p.id) ? 's' : 'r'} fa-heart"></i>
+                </button>
+            </div>
+            <div class="project-info">
+                <h3>${p.title}</h3>
+                <p>${p.desc}</p>
+                <div class="tags-row">
+                    ${(p.tags || []).map(tag => `<span class="mini-tag">#${tag}</span>`).join('')}
+                </div>
+                     <a class="hero-btn hero-btn-secondary" href="${p.addres}" data-i18n="viewButton">
+                    View
+                    <i class="fa fa-link"></i>
+                </a>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ۲. ساخت دکمه‌های فیلتر
+function createFilterButtons() {
+    const chipsContainer = document.getElementById('interestsChips');
+    if (!chipsContainer || !data.length) return;
+    const tags = ['all', ...new Set(data.flatMap(p => (p.tags || [])))];
+
+    chipsContainer.innerHTML = tags.map(tag => `
+        <button class="filter-btn hero-btn-secondary ${tag === 'all' ? 'active' : ''}" 
+                onclick="handleFilter('${tag}', this)">
+            ${tag.toUpperCase()}
+        </button>
+    `).join('');
+}
+
+// ۳. مدیریت کلیک روی فیلترها
+function handleFilter(tag, element) {
+    // تغییر استایل دکمه فعال
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+
+    // تغییر متن عنوان فیلتر
+    document.getElementById('interestsSelected').innerText = tag.charAt(0).toUpperCase() + tag.slice(1);
+
+    // فیلتر کردن منطقی آرایه
+    const filtered = tag === 'all' 
+        ? data 
+        : data.filter(p => (p.tags || []).includes(tag));
+    
+    renderProjects(filtered);
+}
+
+// ۴. تابع Favorite (نمونه برای جلوگیری از خطا)
+function addToFav(id) {
+    console.log("Added to favorites:", id);
+    // اینجا کد لاجیک فاوریت رو اضافه کن
+}
+// ... کدهای قبلی رندر و فیلتر ...
+
+function addToFav(id) {
+    let favorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+    const item = { id, source: 'templates' };
+    const exists = favorites.some(f => (typeof f === 'object' ? f.id : f) === id);
+    if (!exists) {
+        favorites.push(item);
+        localStorage.setItem('myFavorites', JSON.stringify(favorites));
+    }
+    if (typeof updateSidebarBadges === 'function') updateSidebarBadges();
+    if (typeof loadPage === 'function') loadPage('pages/Favorite.html');
+}
+  window.createFilterButtons = createFilterButtons;
+  window.renderProjects = renderProjects;
+  window.handleFilter = handleFilter;
+  window.addToFav = addToFav;
+})();
+</script>
+</body>
+</html>

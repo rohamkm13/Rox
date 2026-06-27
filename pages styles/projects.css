@@ -1,0 +1,322 @@
+/* سکشن اصلی - مثل Home */
+.projects-index {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.projects-grid {
+  display: grid;
+  /* ایجاد ۳ ستون با اندازه برابر */
+  grid-template-columns: repeat(3, 1fr); 
+  /* فاصله بین کارت‌ها */
+  gap: 30px; 
+  padding: 40px 0;
+  /* اجازه می‌دهد ردیف‌ها به هر تعدادی که لازم است اضافه شوند */
+  grid-auto-rows: auto; 
+}
+
+/* کارت‌ها با استایل شیشه‌ای */
+.project-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 15px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  height: 400px;
+}
+
+.project-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+.img-container {
+    width: 100%;
+    height: 100px; /* یک ارتفاع ثابت بده */
+    background: rgba(255, 255, 255, 0.05); /* رنگ رزرو */
+    overflow: hidden;
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* باعث می‌شود عکس کشیده نشود */
+    display: block; /* جلوی فواصل خالی زیر عکس را می‌گیرد */
+}
+.interests-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px;
+}
+
+.interests{
+    border-radius: 12px;
+}
+.interests-head{
+    margin: 20px;
+}
+.filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.filter-btn.active {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
+    color: #fff;
+}
+
+/* ظرف اصلی گرید */
+#projectsGrid,
+#favoritesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* استایل کارت پروژه */
+.project-card {
+    background: rgba(255, 255, 255, 0.03); /* شیشه‌ای خیلی ملایم */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 12px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(59, 130, 246, 0.5); /* درخشش آبی هنگام هاور */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* بخش تصویر کارت */
+.card-header {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* جلوگیری از کشیده شدن عکس */
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .card-header img {
+    transform: scale(1.1); /* زوم ملایم عکس هنگام هاور */
+}
+
+/* دکمه قلب (Favorite) */
+.fav-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.fav-btn:hover {
+    background: #ff4757;
+    border-color: #ff4757;
+    transform: scale(1.1);
+}
+
+/* محتوای متنی کارت */
+.project-info {
+    padding: 15px 5px 5px 5px;
+}
+
+.project-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.project-info p {
+    margin: 8px 0 15px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+    height: 20px; /* محدود کردن ارتفاع برای نظم گرید */
+    overflow: hidden;
+}
+
+/* استایل تگ‌های پایین کارت */
+.tags-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mini-tag {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    margin: 10px 0;
+}
+
+.hero-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ height: 40px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.hero-btn-secondary {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+    color: var(--text-main);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.hero-btn-secondary::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.hero-btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hero-btn-secondary:hover::before {
+    opacity: 1;
+}
+/* ریسپانسیو تمپلیت، پروژه و کامپوننت */
+/* تبلت */
+@media (max-width: 1100px) {
+  .projects-index { padding: 50px 16px; }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 32px 0; }
+  #projectsGrid, #favoritesGrid { grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 24px 0; }
+  .interests { padding: 20px; }
+  .interests-chips { gap: 8px; }
+  .filter-btn { width: 80px; height: 36px; font-size: 11px; }
+  .project-card { height: auto; min-height: 280px; }
+  .card-header { height: 180px; }
+  .project-info h3 { font-size: 1.1rem; }
+  .project-info p { font-size: 0.85rem; height: 38px; }
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+  .projects-index { padding: 32px 16px; }
+  .projects-grid { grid-template-columns: 1fr; gap: 20px; padding: 24px 0; }
+  #projectsGrid, #favoritesGrid { grid-template-columns: 1fr; gap: 20px; padding: 20px 0; }
+  .interests { padding: 16px; }
+  .interests-head h3 { font-size: 16px; }
+  .interests-chips { flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .filter-btn { width: 72px; height: 34px; font-size: 10px; }
+  .project-card { padding: 12px; min-height: auto; }
+  .card-header { height: 160px; border-radius: 14px; }
+  .project-info { padding: 12px 4px 4px; }
+  .project-info h3 { font-size: 1rem; }
+  .project-info p { font-size: 0.8rem; height: 36px; margin: 6px 0 12px; }
+  .tags-row { gap: 6px; }
+  .mini-tag { padding: 3px 8px; font-size: 0.7rem; }
+  .fav-btn { width: 32px; height: 32px; top: 10px; right: 10px; }
+}
+
+/* موبایل کوچک */
+@media (max-width: 480px) {
+  .projects-index { padding: 24px 12px; }
+  .projects-grid { padding: 20px 0; gap: 16px; }
+  #projectsGrid, #favoritesGrid { padding: 16px 0; gap: 16px; }
+  .interests { padding: 14px; }
+  .filter-btn { width: 64px; height: 32px; font-size: 9px; }
+  .project-card { padding: 10px; border-radius: 18px; }
+  .card-header { height: 140px; border-radius: 12px; }
+  .project-info h3 { font-size: 0.95rem; }
+  .project-info p { font-size: 0.75rem; height: 32px; }
+  .favorites-empty { padding: 40px 16px; }
+  .favorites-empty i { font-size: 48px; }
+}
+
+/* صفحه فیوریت */
+.favorites-page .section-title { margin-bottom: 8px; }
+.favorites-subtitle {
+  text-align: center;
+  color: var(--text-dim, rgba(255,255,255,0.6));
+  margin: 0 0 30px 0;
+  font-size: 15px;
+}
+.favorites-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+}
+.favorites-empty i {
+  font-size: 64px;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 20px;
+  display: block;
+}
+.favorites-empty h3 {
+  color: var(--text-main, #fff);
+  margin: 0 0 12px 0;
+}
+.favorites-empty p {
+  color: var(--text-dim, rgba(255,255,255,0.6));
+  margin: 0 0 24px 0;
+}
+.fav-btn-active { background: #ff4757 !important; border-color: #ff4757 !important; }
+.fav-btn-active:hover { background: #ff6b7a !important; }

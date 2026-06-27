@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="../pages styles/Home.css">
+</head>
+<body>
+    <!----------------- Pages are rendered in #page-content ------------------>
+        <div id="page-content">
+     <!--------------------- Hero Section --------------------->
+        <section class="hero-section" id="home">
+           <!-- three.js is rendered in a canvas container -->
+            <div id="canvas-container"></div>
+            <!-- Left card of the Hero section -->
+                <div class="hero-side-card">
+                    <div class="hero-card-icon">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+                    <h3 class="hero-card-title" data-i18n="heroleftcardheading">Innovation</h3>
+                    <p class="hero-card-text" data-i18n="heroleftcardsubheading">Cutting-edge solutions for modern challenges</p>
+                </div>
+            <!-- The content of the hero section center -->
+                <div class="hero-content-center">
+                    <h1 class="hero-headline" data-i18n="heroHeadline">Empowering Digital Workflows</h1>
+                    <p class="hero-subheading" data-i18n="heroSubheading">Transform your business with seamless digital experiences and intelligent automation</p>
+                    <div class="hero-cta-buttons">
+                        <button class="hero-btn hero-btn-primary">
+                            <span data-i18n="heroStart">Start Collaboration</span>
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                        <button class="hero-btn hero-btn-secondary">
+                            <span data-i18n="heroPortfolio">View Portfolio</span>
+                        </button>
+                    </div>
+                </div>
+            <!-- Right card of the Hero section --> 
+                <div class="hero-side-card ">
+                    <div class="hero-card-icon">
+                        <i class="fa fa-shield-alt"></i>
+                    </div>
+                    <h3 class="hero-card-title" data-i18n="herorightcardheading">Security</h3>
+                    <p class="hero-card-text" data-i18n="herorightcardsubheading">Enterprise-grade protection for your data</p>
+                </div>
+              
+             <!-- Scroll Indicator -->
+                <div class="scroll-indicator">
+                        <div class="mouse">
+                            <div class="wheel"></div>
+                        </div>
+                    <span data-i18n="scrollDown">Scroll Down</span>
+                </div> 
+        </section>
+
+    <!-------------------- Counter Section ----------------------->
+        <section class="counter-section">
+            <div class="counter-container">
+                <div class="counter-card">
+                <h2 class="counter" data-target="6">0</h2>
+                <p data-i18n="counterProjectsCompleted">Projects Completed</p>
+                </div>
+                <div class="counter-card">
+                <h2 class="counter" data-target="2000">0</h2>
+                <p data-i18n="counterCodeCommits">Code Commits</p>
+                </div>
+                <div class="counter-card">
+                <h2 class="counter" data-target="5">0</h2>
+                <p data-i18n="counterHappyClients">Happy Clients</p> 
+                </div>
+            </div>
+        </section>
+     <!------------------------ Services Section ------------------------>
+        <section class="services-section" id="services">
+            <h2 class="section-title" data-i18n="servicesTitle">What I Bring to the Table</h2>
+            <div class="services-grid">
+                <div class="service-card glass">
+                    <div class="service-icon"><i class="fa fa-code"></i></div>
+                    <h3 class="service-title" data-i18n="serviceWebDev">Modern Web Apps</h3>
+                    <p class="service-description" data-i18n="serviceWebDevDesc">React - interactive SPAs and dashboards that feel native</p>
+                </div>
+                <div class="service-card glass">
+                    <div class="service-icon"><i class="fa fa-mobile-alt"></i></div>
+                    <h3 class="service-title" data-i18n="serviceMobile">Responsive UI</h3>
+                    <p class="service-description" data-i18n="serviceMobileDesc">Mobile-first, accessible, pixel-perfect across every screen size</p>
+                </div>
+                <div class="service-card glass">
+                    <div class="service-icon"><i class="fa fa-paint-brush"></i></div>
+                    <h3 class="service-title" data-i18n="serviceDesign">Design to Code</h3>
+                    <p class="service-description" data-i18n="serviceDesignDesc">Figma to production-ready components. Clean, scalable, maintainable</p>
+                </div>
+                <div class="service-card glass">
+                    <div class="service-icon"><i class="fa fa-rocket"></i></div>
+                    <h3 class="service-title" data-i18n="serviceCloud">Performance</h3>
+                    <p class="service-description" data-i18n="serviceCloudDesc">90+ Lighthouse scores. Fast load, smooth animations, optimized assets.</p>
+                </div>
+            </div>
+        </section>
+    <!-------------------- Projects Section ------------------------>
+        <section class="projects-section" id="projects">
+            <h2 class="section-title" data-i18n="featuredCreations">Featured Creations</h2>
+            <div class="projects-carousel-container">
+                <div class="projects-carousel-wrapper">
+                    <div class="projects-carousel" id="projectsCarousel">
+                        <!-- The project is rendered from data.js. -->
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+                <a class="see-all-btn hero-btn hero-btn-secondary" href="#" data-page="Projects">
+                    <span data-i18n="seeAll">See All</span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+    <!-------------------- Templates Section ----------------------->
+        <section class="templates-section" id="templates">
+            <h2 class="section-title" data-i18n="designTemplates">Design Templates</h2>
+            <div class="scroll-container">
+                <button class="scroll-btn scroll-btn-left" aria-label="Scroll left">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <div class="templates-scroll" id="templatesScrollHome">
+                    <!-- The Templates is rendered from data.js. -->
+                </div>
+                <button class="scroll-btn scroll-btn-right" aria-label="Scroll right">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+                
+            </div>
+             <a class="see-all-btn hero-btn hero-btn-secondary" href="#" data-page="Templates">
+                    <span data-i18n="seeAll">See All</span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+        </section>
+
+
+    <!-------------------- Tech Stack Section ----------------------->
+        <section class="tech-stack">
+            <div class="marquee">
+                <div class="marquee-content">
+                    <div class="tech-item"><i class="fab fa-react"></i> React</div>
+                    <div class="tech-item"><i class="fab fa-js"></i> JavaScript</div>
+                    <div class="tech-item"><i class="fab fa-node-js"></i> Node.js</div>
+                    <div class="tech-item"><i class="fab fa-python"></i> Python</div>
+                    <div class="tech-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+                    <div class="tech-item"><i class="fab fa-html5"></i> HTML5</div>
+                    <div class="tech-item"><i class="fab fa-figma"></i> Figma</div>
+                    <div class="tech-item"><i class="fab fa-react"></i> React</div>
+                    <div class="tech-item"><i class="fab fa-js"></i> JavaScript</div>
+                    <div class="tech-item"><i class="fab fa-node-js"></i> Node.js</div>
+                    <div class="tech-item"><i class="fab fa-python"></i> Python</div>
+                    <div class="tech-item"><i class="fab fa-css3-alt"></i> CSS3</div>
+                    <div class="tech-item"><i class="fab fa-html5"></i> HTML5</div>
+                    <div class="tech-item"><i class="fab fa-figma"></i> Figma</div>
+                </div>
+            </div>
+        </section>
+    <!-------------------- Templates Section ----------------------->
+        <section class="templates-section components-section" id="components">
+            <h2 class="section-title" data-i18n="componentsSection">Components</h2>
+            <div class="scroll-container">
+                <button class="scroll-btn scroll-btn-left" aria-label="Scroll left">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <div class="templates-scroll components-scroll" id="componentsScrollHome">
+                      <!-- The Templates is rendered from data.js. -->
+                </div>
+                <button class="scroll-btn scroll-btn-right" aria-label="Scroll right">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+             <a class="see-all-btn hero-btn hero-btn-secondary" href="#" data-page="Components">
+                    <span data-i18n="seeAll">See All</span>
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+        </section>
+    <!---------------------------- FAQ Section ----------------------------------->
+        <section class="faq-section" id="faq">
+            <h2 class="section-title" data-i18n="faqTitle">Questions & Answers</h2>
+            <div class="scroll-container">
+                <button class="scroll-btn scroll-btn-left" aria-label="Scroll left">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <div class="faq-scroll">
+                    <div class="faq-item glass">
+                        <h3 class="faq-question" data-i18n="faqQ1">What services do you offer?</h3>
+                        <p class="faq-answer" data-i18n="faqA1">We offer web development, mobile apps, UI/UX design, and cloud solutions.</p>
+                    </div>
+                    <div class="faq-item glass">
+                        <h3 class="faq-question" data-i18n="faqQ2">How long does a project take?</h3>
+                        <p class="faq-answer" data-i18n="faqA2">Project timelines vary based on complexity, typically ranging from 2-12 weeks.</p>
+                    </div>
+                    <div class="faq-item glass">
+                        <h3 class="faq-question" data-i18n="faqQ3">Do you provide ongoing support?</h3>
+                        <p class="faq-answer" data-i18n="faqA3">Yes, we offer maintenance and support packages for all our projects.</p>
+                    </div>
+                    <div class="faq-item glass">
+                        <h3 class="faq-question" data-i18n="faqQ4">What is your pricing model?</h3>
+                        <p class="faq-answer" data-i18n="faqA4">We offer both fixed-price and hourly rate options depending on the project.</p>
+                    </div>
+                    <div class="faq-item glass">
+                        <h3 class="faq-question" data-i18n="faqQ5">Can I see examples of your work?</h3>
+                        <p class="faq-answer" data-i18n="faqA5">Yes, check out our portfolio section above for recent projects.</p>
+                    </div>
+                </div>
+                <button class="scroll-btn scroll-btn-right" aria-label="Scroll right">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    <!------------------------------ Footer ----------------------------------->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-section footer-about">
+                        <h3 class="footer-title" data-i18n="aboutWebsite">About WebSite</h3>
+                        <p class="footer-text" data-i18n="aboutWebsiteText">Empowering digital workflows with innovative solutions and cutting-edge technology.</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="Facebook">
+                                <i class="fa-brands fa-telegram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Twitter">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="LinkedIn">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="footer-section footer-links">
+                        <h3 class="footer-title" data-i18n="quickLinks">Tech Stack</h3>
+                        <ul class="footer-list">
+                            <li><a data-i18n="linkHome">HTML</a><i class="fab fa-html5"></i></li>
+                            <li><a  data-i18n="linkServices">CSS</a><i class="fab fa-css3"></i></li>
+                            <li><a  data-i18n="linkProjects">Java Script</a><i class="fab fa-js"></i></li>
+                            
+                        
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section footer-services">
+                        <h3 class="footer-title" data-i18n="servicesFooter">Currently</h3>
+                        <ul class="footer-list">
+                            <li><a  data-i18n="serviceFooterWeb">Building x project.</a></li>
+                            <li><a  data-i18n="serviceFooterMobile">Open for work</a></li>
+                        
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section footer-contact">
+                        <h3 class="footer-title">Contact Info</h3>
+                        <ul class="footer-list">
+                            <li>
+                                <i class="fa fa-envelope"></i>
+                                <span>Rohamkm13pl.com</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i>
+                                <span>+98 905 130 9887</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker-alt"></i>
+                                <span>Rasht, IR <img src="IranFlag.jpg" alt="" style="width: 12px; height: 10px;"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-copyright">
+                        <p data-i18n="copyrightText">&copy; 2026 All rights reserved. Designed with Roham </p><i class="fa fa-fire fire"></i>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#">Privacy Policy</a>
+                        <span>|</span>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+  </div>
+
+
+
+
+
+
+<script>
+/* -------------------------------------------------------
+  Dynamic rendering of projects, templates, and components from data.js
+------------------------------------------------------- */
+(function () {
+  if (typeof APP_DATA === 'undefined') return;
+  const { projects, templates, components } = APP_DATA;
+
+  /* --- Rendering projects in Carousel --- */
+  const projectsEl = document.getElementById('projectsCarousel');
+  if (projectsEl) {
+    projectsEl.innerHTML = projects
+      .map(
+        (p) => `
+      <div class="project-item glass">
+        <div class="project-image"><img src="${p.img}" alt="${p.title}"></div>
+        <h3 class="project-title">${p.title}</h3>
+        <p class="project-description">${p.desc}</p>
+      </div>
+    `
+      )
+      .join('');
+  }
+
+  /* --- Rendering Templates in Scroll Home --- */
+  const templatesEl = document.getElementById('templatesScrollHome');
+  if (templatesEl) {
+    templatesEl.innerHTML = templates
+      .map(
+        (t) => `
+      <div class="template-item glass">
+        <div class="template-image"><img src="${t.img}" alt="${t.title}"></div>
+        <h3 class="template-title">${t.title}</h3>
+        <p class="template-description">${t.desc}</p>
+      </div>
+    `
+      )
+      .join('');
+  }
+
+  /* --- Rendering Components in Scroll Home --- */
+  const componentsEl = document.getElementById('componentsScrollHome');
+  if (componentsEl) {
+    componentsEl.innerHTML = components
+      .map(
+        (c) => `
+      <div class="template-item glass">
+        <div class="template-image"><img src="${c.img}" alt="${c.title}"></div>
+        <h3 class="template-title">${c.title}</h3>
+        <p class="template-description">${c.desc}</p>
+      </div>
+    `
+      )
+      .join('');
+  }
+})();
+
+/* -------------------------------------------------------
+  Run Three.js only when the page loads (with cleanup system)
+------------------------------------------------------- */
+(function () {
+  const cleanup = window.__pageCleanup;
+  if (!cleanup) return;
+
+  const canvasContainer = document.getElementById('canvas-container');
+  if (!canvasContainer || typeof THREE === 'undefined') return;
+
+  /* --- Creating a scene, camera, and renderer--- */
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  const renderer = new THREE.WebGLRenderer({ alpha: true });
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  canvasContainer.appendChild(renderer.domElement);
+
+  /* --- Constructing a geometric shape (Icosahedron) --- */
+  const geometry = new THREE.IcosahedronGeometry(2, 1);
+  const material = new THREE.MeshBasicMaterial({
+    color: 0x3b82f6,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.5,
+  });
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
+
+  camera.position.z = 5;
+
+  /* --- Rotation animation--- */
+  let animationId;
+  function animate() {
+    animationId = requestAnimationFrame(animate);
+    sphere.rotation.x += 0.005;
+    sphere.rotation.y += 0.005;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  /* --- Clearing when exiting the page--- */
+  cleanup.add(function () {
+    cancelAnimationFrame(animationId);
+    renderer.dispose();
+    scene.clear();
+  });
+})();
+
+/* -------------------------------------------------------
+   Counters with IntersectionObserver
+------------------------------------------------------- */
+(function () {
+  const counters = document.querySelectorAll('.counter');
+  if (!counters.length) return;
+
+  const speed = 900;
+
+  setInterval(() => {
+    const startCounters = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+
+          const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / speed;
+
+            if (count < target) {
+              counter.innerText = Math.ceil(count + inc);
+              setTimeout(updateCount, 1);
+            } else {
+              counter.innerText =
+                target + (target === 15 || target === 30 ? '+' : '');
+            }
+          };
+
+          updateCount();
+          observer.unobserve(counter);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(startCounters, {
+      threshold: 0.5,
+    });
+
+    counters.forEach((counter) => observer.observe(counter));
+  }, 1500);
+
+  window.__pageCleanup?.add(function () {
+    observer.disconnect();
+  });
+})();
+
+/* -------------------------------------------------------
+Horizontal scroll with left/right buttons (Templates / FAQ / Components)
+------------------------------------------------------- */
+(function () {
+  const resizeHandlers = [];
+  const scrollAmount = 320;
+
+  function initScrollContainer(container) {
+    const scrollElement = container.querySelector(
+      '.templates-scroll, .faq-scroll, .components-scroll'
+    );
+    const leftBtn = container.querySelector('.scroll-btn-left');
+    const rightBtn = container.querySelector('.scroll-btn-right');
+
+    if (!scrollElement || !leftBtn || !rightBtn) return;
+
+    /* --- Update button status--- */
+    function updateButtonVisibility() {
+      const isScrollable =
+        scrollElement.scrollWidth > scrollElement.clientWidth + 5;
+
+      leftBtn.style.visibility = isScrollable ? 'visible' : 'hidden';
+      rightBtn.style.visibility = isScrollable ? 'visible' : 'hidden';
+
+      leftBtn.style.opacity = scrollElement.scrollLeft > 5 ? '1' : '0.5';
+      rightBtn.style.opacity =
+        scrollElement.scrollLeft <
+        scrollElement.scrollWidth - scrollElement.clientWidth - 5
+          ? '1'
+          : '0.5';
+    }
+
+    /* --- Scroll events--- */
+    leftBtn.addEventListener('click', () =>
+      scrollElement.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+    );
+    rightBtn.addEventListener('click', () =>
+      scrollElement.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    );
+
+    scrollElement.addEventListener('scroll', updateButtonVisibility);
+    window.addEventListener('resize', updateButtonVisibility);
+
+    resizeHandlers.push(() =>
+      window.removeEventListener('resize', updateButtonVisibility)
+    );
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(updateButtonVisibility);
+    });
+  }
+
+  document.querySelectorAll('.scroll-container').forEach(initScrollContainer);
+
+  window.__pageCleanup?.add(() => resizeHandlers.forEach((fn) => fn()));
+})();
+
+/* -------------------------------------------------------
+ Projects Carousel + Auto Slide + Indicators
+------------------------------------------------------- */
+(function () {
+  const carousel = document.getElementById('projectsCarousel');
+  const indicatorsContainer = document.getElementById('carouselIndicators');
+  if (!carousel || !indicatorsContainer) return;
+
+  const items = carousel.querySelectorAll('.project-item');
+  const totalItems = items.length;
+
+  let currentIndex = 0;
+  let autoRotateInterval;
+  let resizeTimeout;
+  let lastItemsPerView = 0;
+
+  /* --- Number of items per slide based on page size--- */
+  function getItemsPerView() {
+    const w = window.innerWidth;
+    if (w < 768) return 1;
+    if (w < 1024) return 2;
+    return 3;
+  }
+
+  /* --- Rebuilding Indicators --- */
+  function rebuildIndicators() {
+    const perView = getItemsPerView();
+    const slideCount = Math.ceil(totalItems / perView);
+
+    indicatorsContainer.innerHTML = '';
+
+    for (let i = 0; i < slideCount; i++) {
+      const indicator = document.createElement('button');
+      indicator.className =
+        'carousel-indicator' + (i === currentIndex ? ' active' : '');
+      indicator.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      indicator.addEventListener('click', () => goToSlide(i));
+      indicatorsContainer.appendChild(indicator);
+    }
+  }
+
+  /* --- Spacing between items--- */
+  function getGap() {
+    return window.innerWidth < 768 ? 16 : 24;
+  }
+
+  /* --- Carousel location update --- */
+  function updateCarousel() {
+    if (!items.length) return;
+
+    const perView = getItemsPerView();
+    const slideCount = Math.ceil(totalItems / perView);if (lastItemsPerView !== perView) {
+      lastItemsPerView = perView;
+      rebuildIndicators();
+      currentIndex = Math.min(currentIndex, slideCount - 1);
+    }
+
+    const gap = getGap();
+    const itemWidth = items[0].offsetWidth + gap;
+    const translateX = -currentIndex * itemWidth * perView;
+
+    carousel.style.transform = `translateX(${translateX}px)`;
+
+    const indicators = indicatorsContainer.querySelectorAll(
+      '.carousel-indicator'
+    );
+    indicators.forEach((ind, idx) => {
+      ind.classList.toggle('active', idx === currentIndex);
+    });
+  }
+
+  /* --- Go to a specific slide--- */
+  function goToSlide(index) {
+    const perView = getItemsPerView();
+    const maxIndex = Math.ceil(totalItems / perView) - 1;
+
+    currentIndex = Math.max(0, Math.min(index, maxIndex));
+    updateCarousel();
+  }
+
+  /* --- Next slide (Auto Slide) --- */
+  function nextSlide() {
+    const perView = getItemsPerView();
+    const maxIndex = Math.ceil(totalItems / perView) - 1;
+
+    currentIndex = (currentIndex + 1) % (maxIndex + 1);
+    updateCarousel();
+  }
+
+  /* --- Start Auto Rotate--- */
+  function startAutoRotate() {
+    autoRotateInterval = setInterval(nextSlide, 3000);
+  }
+
+  /* --- Stop Auto Rotate--- */
+  function stopAutoRotate() {
+    if (autoRotateInterval) clearInterval(autoRotateInterval);
+  }
+
+  /* --- Stop on Hover --- */
+  carousel.addEventListener('mouseenter', stopAutoRotate);
+  carousel.addEventListener('mouseleave', startAutoRotate);
+
+  startAutoRotate();
+
+  /* --- Resize handle --- */
+  const resizeHandler = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (carousel && items.length > 0) updateCarousel();
+    }, 250);
+  };
+
+  window.addEventListener('resize', resizeHandler);
+
+  updateCarousel();
+
+  /* --- Clearing when exiting the page--- */
+  window.__pageCleanup?.add(function () {
+    stopAutoRotate();
+    window.removeEventListener('resize', resizeHandler);
+  });
+})();
+
+        
+</script>
+
+</body>
+</html>

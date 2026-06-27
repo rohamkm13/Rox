@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="../pages styles/About.css">
+</head>
+<body>
+   <div id="page-content">
+  <!------------------------- About Section ------------------------>
+         <section class="about-section" id="about">
+      <!---- About Grid Section ---->
+  <div class="about-grid">
+
+    <!--  Left Column: About Story  -->
+      <div class="about-story glass">
+
+          <!-- Section Title -->
+          <h3 data-i18n="aboutTitle">Who am I ?</h3>
+
+          <!-- Description -->
+          <p data-i18n="aboutDescription">
+           Hey, I'm Reham 👋 <br>
+            Frontend developer with a year of React under my belt. I obsess over clean design and tiny details that most people miss. Based in Rasht, open to freelance projects worldwide. Let's build something that looks good and works great.
+          </p>
+
+          <!-- Feature List -->
+          <ul class="about-list">
+              <li data-i18n="aboutFeature1">
+                  <i class="fa fa-check"></i>
+                  Clean code, clean design — both matter to me
+              </li>
+              <li data-i18n="aboutFeature2">
+                  <i class="fa fa-check"></i>
+                 I finish what I start — no half-baked projects
+              </li>
+              <li data-i18n="aboutFeature3">
+                  <i class="fa fa-check"></i>
+                  Easy to work with — clear communication, no drama
+              </li>
+          </ul>
+
+          <!-- Call To Action -->
+          <div class="about-cta ">
+              <a href="#contact" class="hero-btn hero-btn-secondary">
+                  <span data-i18n="aboutCTAButton">Meet me</span>
+                  <i class="fa fa-arrow-right"></i>
+              </a>
+
+              <span class="about-cta-caption" data-i18n="aboutCTACaption">
+                  Or browse case studies in the projects section
+              </span>
+          </div>
+
+      </div>
+
+      <!--  Right Column: Metrics  -->
+      <div class="about-metrics">
+
+          <!-- Metric Card: Products -->
+          <div class="metric-card glass">
+              <span class="metric-label">Projects completed</span>
+              <strong class="metric-value">1</strong>
+              <p class="metric-caption">
+                  from landing pages to dashboards
+              </p>
+          </div>
+
+          <!-- Metric Card: ROI -->
+          <div class="metric-card glass">
+              <span class="metric-label">Focus</span>
+              <strong class="metric-value"> </strong>
+              <p class="metric-caption">
+                 Clean, responsive, user-first interfaces
+              </p>
+          </div>
+
+          <!-- Metric Card: Retention -->
+          <div class="metric-card glass">
+              <span class="metric-label">Goal</span>
+              <strong class="metric-value"></strong>
+              <p class="metric-caption">
+                 Long-term freelance partnerships
+              </p>
+          </div>
+
+      </div>
+
+  </div>
+
+  <!------------------------- TIMELINE SECTION ------------------------->
+  <div class="about-timeline glass">
+      <!-- Timeline Item 2019 -->
+      <div class="timeline-item">
+          <span class="timeline-year">2023</span>
+          <h4>Curiosity sparked</h4>
+          <p>
+              Started learning HTML & CSS , building small project for fun.
+          </p>
+      </div>
+      <!-- Timeline Item 2021 -->
+      <div class="timeline-item">
+          <span class="timeline-year">2024</span>
+          <h4>Going deeper</h4>
+          <p>
+              Picked up react, built my first rael projects.Fell in love with clean ui.
+          </p>
+      </div>
+      <!-- Timeline Item Today -->
+      <div class="timeline-item">
+          <span class="timeline-year">Today</span>
+          <h4>Ready to built</h4>
+          <p>
+             Freelance frontend dev,open for work. Bringing ideas to life with react & attention to detail.
+          </p>
+      </div>
+  </div>
+    <!---------------------- SKILLS RADAR CHART ----------------------->
+            <div class="skills-radar-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+    
+        </section>    
+    <!---------------------- Blog Section -------------------------->
+         <h2 class="section-title">Blogs</h2>
+         <section class="blog-container" id="blog-container"></section>
+
+  </div>
+
+
+  <script>
+   
+    //--------------------- Chart Js ----------------------------
+
+   (function() {
+    //  -- Get the canvas element --
+        const canvas = document.getElementById('skillsChart');
+             if (!canvas || typeof Chart === 'undefined') return;  // If the chart or chart.js does not exist, the code will not run.
+        const ctx = canvas.getContext('2d');
+    //-- Chart data -- 
+    const data = {
+        labels: ['React', 'JavaScript', 'CSS/UI', 'Node.js', 'Figma', 'Three.js'],
+        datasets: [{
+        label: 'Skill Level',
+        data: [70, 80, 95, 50, 70, 40], // Score
+        fill: true,
+        backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+        borderColor: '#3b82f6', 
+        pointBackgroundColor: '#3b82f6',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#3b82f6'
+  }]
+};
+    //-- Chart settings --
+        const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+            line: { borderWidth: 1 }
+            },
+            scales: {
+            r: {
+                angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                pointLabels: {
+                color: 'rgba(255, 255, 255, 0.7)', 
+                font: { size: 14 }
+                },
+                ticks: {
+                display: false, // Hides numbers 1 to 100 for beauty
+                stepSize: 20
+                }
+            }
+            },
+            plugins: {
+            legend: { display: false } // Remove the title
+            }
+        }
+        };
+    //-- Make a chart --
+      const chart = new Chart(ctx, config);
+      window.__pageCleanup?.add(function() {
+        chart.destroy();
+      });
+    })();
+
+// ---------------------- Rendering Blogs in Blog Container ------------------------
+  
+(function () {
+  if (typeof APP_DATA === 'undefined') return; // If there is nothing in APP DATA, the code will not run.
+  const { projects, templates, components, blogs } = APP_DATA;
+  const blogContainer = document.getElementById('blog-container');
+  if (blogContainer) {
+    blogContainer.innerHTML = blogs
+      .map(
+        (p) => `
+                     <div class="project-card">
+                       <div class="card-header">
+                           <img src="${p.img}" alt="${p.title}">
+                      </div>
+                    <div class="project-info">
+                       <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                
+                             <a href="#" data-page="${p.addres}" class="hero-btn hero-btn-secondary">
+                          <span>View More</span>  
+                           <i class="fa fa-link"></i>
+                        </a>
+                   </div>
+                  </div>`
+      )
+      .join('');
+  }
+  })();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="../pages styles/projects.css">
+</head>
+<body>
+   <div id="page-content">
+        
+<section class="projects-index">
+
+    <!-- بخش اصلی پروژه‌ها / Main container for the projects section -->
+    <div class="interests glass" id="interests">
+
+        <!-- هدر فیلترها / Filters header -->
+        <div class="interests-head">
+            <h3 data-i18n="filterProjects">Filter Projects</h3>
+            <!-- نمایش فیلتر انتخاب‌شده / Shows the currently selected filter -->
+            <span class="interests-selected" id="interestsSelected" data-i18n="allLabel">All</span>
+        </div>
+
+        <!-- چیپ‌های فیلتر که داینامیک ساخته می‌شن / Dynamic filter chips container -->
+        <div class="interests-chips" id="interestsChips"></div>
+    </div>
+
+    <!-- گرید پروژه‌ها که با JS پر می‌شه / Projects grid populated dynamically -->
+    <div class="projects-grid" id="projectsGrid"></div>
+
+</section>
+      
+
+     
+  </div>
+<script>
+(function() {
+
+  // دریافت لیست پروژه‌ها از APP_DATA یا آرایه خالی
+  // Get project list from APP_DATA or fallback to empty array
+  const data = (typeof APP_DATA !== 'undefined' && APP_DATA.projects) ? APP_DATA.projects : [];
+
+
+
+  // ------------------------------------------------------------
+  // ۱. تابع رندر کردن کارت‌های پروژه
+  // 1. Function to render project cards
+  // ------------------------------------------------------------
+  function renderProjects(filteredList) {
+      const container = document.getElementById('projectsGrid');
+      if (!container) return;
+
+      // اگر فیلتر وجود داشت از آن استفاده می‌کنیم، در غیر این صورت کل دیتا
+      // Use filtered list if provided, otherwise use full data
+      const displayList = filteredList || data;
+
+      // دریافت لیست فاوریت‌ها از localStorage
+      // Get favorites from localStorage
+      const favIds = JSON.parse(localStorage.getItem('myFavorites') || '[]');
+
+      // بررسی اینکه آیا پروژه در فاوریت هست یا نه
+      // Check if project is in favorites
+      const isFav = id => favIds.some(f => (typeof f === 'object' ? f.id : f) === id);
+
+      // ساخت HTML کارت‌ها
+      // Generate project cards HTML
+      container.innerHTML = displayList.map(p => `
+          <div class="project-card">
+              <div class="card-header">
+                  <img src="${p.img}" alt="${p.title}">
+                  <button class="fav-btn ${isFav(p.id) ? 'fav-btn-active' : ''}" onclick="addToFav('${p.id}')">
+                      <i class="fa${isFav(p.id) ? 's' : 'r'} fa-heart"></i>
+                  </button>
+              </div>
+              <div class="project-info">
+                  <h3>${p.title}</h3>
+                  <p>${p.desc}</p>
+
+                  <!-- نمایش تگ‌ها -->
+                  <!-- Display project tags -->
+                  <div class="tags-row">
+                      ${(p.tags || []).map(tag => `<span class="mini-tag">#${tag}</span>`).join('')}
+                  </div>
+
+                  <!-- دکمه مشاهده پروژه -->
+                  <!-- View project button -->
+                  <a class="hero-btn hero-btn-secondary" href="${p.addres}" data-i18n="viewButton">
+                      View
+                      <i class="fa fa-link"></i>
+                  </a>
+              </div>
+          </div>
+      `).join('');
+  }
+
+
+
+  // ------------------------------------------------------------
+  // ۲. ساخت دکمه‌های فیلتر
+  // 2. Create filter buttons
+  // ------------------------------------------------------------
+  function createFilterButtons() {
+      const chipsContainer = document.getElementById('interestsChips');
+      if (!chipsContainer || !data.length) return;
+
+      // استخراج تگ‌ها و اضافه کردن گزینه "all"
+      // Extract tags and add "all" option
+      const tags = ['all', ...new Set(data.flatMap(p => (p.tags || [])))];
+
+      // ساخت دکمه‌های فیلتر
+      // Generate filter buttons
+      chipsContainer.innerHTML = tags.map(tag => `
+          <button class="filter-btn hero-btn-secondary ${tag === 'all' ? 'active' : ''}" 
+                  onclick="handleFilter('${tag}', this)">
+              ${tag.toUpperCase()}
+          </button>
+      `).join('');
+  }
+
+
+
+  // -----------------------------------------------------------
+  // ۳. مدیریت کلیک روی فیلترها
+  // 3. Handle filter button click
+  // ------------------------------------------------------------
+  function handleFilter(tag, element) {
+
+      // حذف active از همه دکمه‌ها
+      // Remove active class from all buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+
+      // فعال کردن دکمه کلیک‌شده
+      // Activate clicked button
+      element.classList.add('active');
+
+      // تغییر متن فیلتر انتخاب‌شده
+      // Update selected filter label
+      document.getElementById('interestsSelected').innerText =
+          tag.charAt(0).toUpperCase() + tag.slice(1);
+
+      // فیلتر کردن پروژه‌ها
+      // Filter projects by tag
+      const filtered = tag === 'all'
+          ? data
+          : data.filter(p => (p.tags || []).includes(tag));
+
+      renderProjects(filtered);
+  }
+
+
+
+  // ------------------------------------------------------------
+  // ۴. تابع Favorite (نسخه اولیه برای جلوگیری از خطا)
+  // 4. Favorite function (initial placeholder)
+  // ------------------------------------------------------------
+  function addToFav(id) {
+      console.log("Added to favorites:", id);
+      // اینجا می‌تونی لاجیک دلخواه اضافه کنی
+      // You can add your logic here
+  }
+
+
+
+  // ------------------------------------------------------------
+  // نسخه نهایی تابع Favorite با ذخیره‌سازی در localStorage
+  // Final Favorite function with localStorage saving
+  // ------------------------------------------------------------
+  function addToFav(id) {
+      let favorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+      // اگر پروژه قبلاً فاوریت نشده بود اضافه کن
+      // Add project if not already in favorites
+      if (!favorites.includes(id)) {
+          favorites.push(id);
+          localStorage.setItem('myFavorites', JSON.stringify(favorites));
+      }
+
+      // آپدیت کردن نشانگرهای سایدبار (اگر وجود داشته باشد)
+      // Update sidebar badges if function exists
+      if (typeof updateSidebarBadges === 'function') updateSidebarBadges();
+
+      // رفرش صفحه فاوریت‌ها (اگر loadPage وجود داشته باشد)
+      // Reload Favorites page if loadPage exists
+      if (typeof loadPage === 'function') loadPage('pages/Favorite.html');
+  }
+
+
+
+  // ------------------------------------------------------------
+  // اتصال توابع به window برای دسترسی عمومی
+  // Expose functions to window for global access
+  // ------------------------------------------------------------
+  window.createFilterButtons = createFilterButtons;
+  window.renderProjects = renderProjects;
+  window.handleFilter = handleFilter;
+  window.addToFav = addToFav;
+
+})();
+</script>
+</body>
+</html>

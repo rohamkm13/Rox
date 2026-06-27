@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="../pages styles/contact.css">
+</head>
+<body>
+   <div id="page-content">
+       <!----------------------- Contact Section --------------------------->
+        <section class="contact-section" id="contact">
+            <h2 class="section-title" data-i18n="contactTitle">Let's Connect</h2>
+            <div class="contact-wrapper">
+                <div class="contact-summary glass">
+                    <span class="contact-badge"><i class="fa fa-bolt"></i> <span data-i18n="contactBadge">New projects welcome</span></span>
+                    <h3 class="contact-headline" data-i18n="contactHeadline">Ready to build your next big thing?</h3>
+                    <p class="contact-subtitle" data-i18n="contactSubtitle">Share a few details about your idea and let's explore how we can design, develop, and launch it together.</p>
+
+                    <div class="contact-details-grid">
+                        <div class="contact-detail">
+                            <span class="contact-detail-label"><i class="fa fa-envelope"></i>Email</span>
+                            <a href="mailto:hello@studioflow.dev" class="contact-detail-value">rohamkm13pl@gmail.com</a>
+                        </div>
+                        <div class="contact-detail">
+                            <span class="contact-detail-label"><i class="fa fa-phone"></i>Direct line</span>
+                            <a href="tel:+15551234567" class="contact-detail-value">+98 910 992 0705</a>
+                        </div>
+                        <div class="contact-detail">
+                            <span class="contact-detail-label"><i class="fa fa-map-marker-alt"></i>Location</span>
+                            <p class="contact-detail-value">Iran · Rasht</p>
+                        </div>
+                        <div class="contact-detail">
+                            <span class="contact-detail-label"><i class="fa fa-calendar"></i>Project timeline</span>
+                            <p class="contact-detail-value">Typically 2 – 10 weeks depending on scope</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-hours">
+                        <h4 data-i18n="contactOfficeHours">Office hours</h4>
+                        <p data-i18n="contactOfficeHoursText">Sat – Wed · 9:00 AM – 6:00 PM EST</p>
+                    </div>
+
+                    <div class="contact-socials">
+                        <span data-i18n="contactPreferDM">Prefer a quick DM?</span>
+                        <div class="contact-social-links">
+                            <a href="#" aria-label="Chat on LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" aria-label="Message on Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" aria-label="Say hi on GitHub"><i class="fa-brands fa-github"></i></a>
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+                <!-- Contact Form -->
+                <div class="contact-form-container glass">
+                    <div class="contact-form-header">
+                        <h3>Project kick-off form</h3>
+                        <p>Tell me about your goals, audience, and timeline. I respond within one business day.</p>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName" data-i18n="contactLabelName">Full name</label>
+                                <input type="text" id="contactName" placeholder="Your Name" data-i18n-placeholder="contactPlaceholderName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactCompany" data-i18n="contactLabelCompany">Company</label>
+                                <input type="text" id="contactCompany" placeholder="Your Company" data-i18n-placeholder="contactPlaceholderCompany">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactEmail" data-i18n="contactLabelEmailInput">Email</label>
+                                <input type="email" id="contactEmail" placeholder="you@email.com" data-i18n-placeholder="contactPlaceholderEmail" required>
+                            </div>
+                           
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject" data-i18n="contactLabelSubject">Project focus</label>
+                            <input type="text" id="contactSubject" placeholder="Web app redesign, brand launch, etc." data-i18n-placeholder="contactPlaceholderSubject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage" data-i18n="contactLabelMessage">Project details</label>
+                            <textarea id="contactMessage" placeholder="What problem are we solving? Who is it for?" data-i18n-placeholder="contactPlaceholderMessage" rows="6" required></textarea>
+                        </div>
+                        <div class="form-row form-row-submit">
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="contactNewsletter">
+                                <span data-i18n="contactNewsletterText">Keep me updated with product drops and case studies</span>
+                            </label>
+                            <button type="submit" class="form-btn">
+                                <span data-i18n="contactSubmit">Start the conversation</span>
+                                <i class="fa fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Step -->
+        <section class="contact-about-section" id="contact-overview">
+            <h3 class="contact-steps-title" data-i18n="contactHowItWorks">How it works</h3>
+            <div class="contact-about-steps">
+                <div class="contact-step">
+                    <span>Step 1</span>
+                    <h4 data-i18n="contactStep1">Discovery & alignment</h4>
+                    <p data-i18n="contactStep1Desc">We sync on goals, audience, and timing so the brief captures exactly what you need.</p>
+                </div>
+                <div class="contact-step">
+                    <span>Step 2</span>
+                    <h4 data-i18n="contactStep2">Solution roadmap</h4>
+                    <p data-i18n="contactStep2Desc">You receive a tailored plan with milestones, deliverables, and transparent pricing.</p>
+                </div>
+                <div class="contact-step">
+                    <span>Step 3</span>
+                    <h4 data-i18n="contactStep3">Design & build</h4>
+                    <p data-i18n="contactStep3Desc">We iterate quickly, share progress early, and ship a polished experience ready for launch.</p>
+                </div>
+            </div>
+        </section>
+  </div>
+</body>
+</html>

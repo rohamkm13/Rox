@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="../pages styles/Calendar.css">
+</head>
+<body>
+   
+     <div id="page-content">
+        <!-- Iranian Solar Calendar Section -->
+                <section class="calendar-section" id="calendar">
+                 
+                    <div class="calendar-wrapper glass">
+                        <div class="calendar-header">
+                            <button class="calendar-nav" id="calPrev" aria-label="Previous month"><i class="fa fa-chevron-left"></i></button>
+                            <div class="calendar-title">
+                                <span id="calMonth"></span>
+                                <span id="calYear"></span>
+                            </div>
+                            <button class="calendar-nav" id="calNext" aria-label="Next month"><i class="fa fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Weekdays -->
+                            <div class="calendar-weekday">Saturday</div>
+                            <div class="calendar-weekday">Sunday</div>
+                            <div class="calendar-weekday">Monday</div>
+                            <div class="calendar-weekday">Tuesday</div>
+                            <div class="calendar-weekday">Wednesday</div>
+                            <div class="calendar-weekday">Thursday</div>
+                            <div class="calendar-weekday">Friday</div>
+                            <!-- Days injected by script -->
+                        </div>
+                       
+                    </div>
+                </section>
+
+    </div>  
+
+<script>
+  
+  (function() {
+
+    // ------------------------------------------------------------
+    // نام ماه‌های جلالی
+    // Persian (Jalali) month names
+    // ------------------------------------------------------------
+    const persianMonths = [
+        "Farvardin","Ordibehesht","Khordad","Tir","Mordad","Shahrivar",
+        "Mehr","Aban","Azar","Dey","Bahman","Esfand"
+    ];
+
+    // تبدیل اعداد انگلیسی به فارسی
+    // Convert English digits to Persian digits
+    const toPersianDigits = n => (""+n).replace(/[0-9]/g, d => "01234456789"[+d]);
+
+
+    // ------------------------------------------------------------
+    // تبدیل تاریخ میلادی به جلالی
+    // Convert Gregorian date to Jalali date
+    // ------------------------------------------------------------
+    function gregorianToJalali(gy, gm, gd){
+        const g_d_m=[0,31,59,90,120,151,181,212,243,273,304,334];
+        let jy=(gy<=1600)?0:979; 
+        gy-=(gy<=1600)?621:1600; 
+        let gy2=(gm>2)?(gy+1):gy;
+
+        let days=(365*gy)
+            + parseInt((gy2+3)/4,10)
+            - parseInt((gy2+99)/100,10)
+            + parseInt((gy2+399)/400,10)
+            - 80 + gd + g_d_m[gm-1];
+
+        jy += 33 * parseInt(days/12053,10);
+        days %= 12053;
+
+        jy += 4 * parseInt(days/1461,10);
+        days %= 1461;
+
+        if(days>365){
+            jy += parseInt((days-1)/365,10);
+            days = (days-1)%365;
+        }
+
+        let jm = (days<186) ? 1+parseInt(days/31,10) : 7+parseInt((days-186)/30,10);
+        let jd = 1 + ((days<186) ? (days%31) : ((days-186)%30));
+
+        return [jy+1, jm, jd];
+    }
+
+
+    // ------------------------------------------------------------
+    // تعداد روزهای ماه جلالی
+    // Get number of days in a Jalali month
+    // ------------------------------------------------------------
+    function jalaliMonthLength(jy, jm){
+        if (jm<=6) return 31;
+        if (jm<=11) return 30;
+        return isJalaliLeap(jy) ? 30 : 29;
+    }
+
+
+    // ------------------------------------------------------------
+    // بررسی سال کبیسه جلالی
+    // Check if Jalali year is leap
+    // ------------------------------------------------------------
+    function isJalaliLeap(jy){
+        const breaks=[-61,9,38,199,426,686,756,818,1111,1181,1210,1635,2060,2097,2192,2262,2324,2394,2456,3178];
+        let bl=breaks.length, jp=breaks[0], jm, jump, leapJ= -14, n, i;
+
+        if (jy<jp || jy>=breaks[bl-1]) return false;
+
+        for(i=1;i<bl;i++){
+            jm=breaks[i];
+            jump=jm-jp;
+            if(jy<jm) break;
+            leapJ += parseInt(jump/33,10)*8 + parseInt((jump%33)/4,10);
+            jp=jm;
+        }
+
+        n = jy - jp;
+        leapJ += parseInt(n/33,10)*8 + parseInt(((n%33)+3)/4,10);
+
+        if(((jump%33)===4) && (jump-n===4)) leapJ++;
+
+        return (((leapJ+1)%33)-1)%4===0;
+    }
+
+
+    // ------------------------------------------------------------
+    // تبدیل تاریخ جلالی به میلادی
+    // Convert Jalali date to Gregorian date
+    // ------------------------------------------------------------
+    function jalaliToGregorian(jy,jm,jd){
+        const jy0 = jy;
+        jy -= (jy<=979)?0:979;
+
+        let gy = (jy<=979)?621:1600;
+        let days = (365*jy) + parseInt(jy/33,10)*8 + parseInt(((jy%33)+3)/4,10);
+
+        for(let i=1;i<jm;i++)
+            days += (i<=6?31:(i<=11?30:(isJalaliLeap(jy0)?30:29)));
+
+        days += jd-1;
+
+        gy += 400 * parseInt(days/146097,10);
+        days %= 146097;
+
+        if(days>36524){
+            gy += 100 * parseInt((--days)/36524,10);
+            days %= 36524;
+            if(days>=365) days++;
+        }
+
+        gy += 4 * parseInt(days/1461,10);
+        days %= 1461;
+
+        if(days>365){
+            gy += parseInt((days-1)/365,10);
+            days = (days-1)%365;
+        }
+
+        const gd = days+1;
+        const sal_a=[0,31,((gy%4===0 && gy%100!==0) || (gy%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+
+        let gm=0, d=gd;
+        for(let i=1;i<=12;i++){
+            if(d>sal_a[i]) d-=sal_a[i];
+            else { gm=i; break; }
+        }
+
+        return [gy,gm,d];
+    }// ------------------------------------------------------------
+    // انتخاب عناصر DOM تقویم
+    // Select calendar DOM elements
+    // ------------------------------------------------------------
+    const grid = document.getElementById('calendarGrid');
+    const monthEl = document.getElementById('calMonth');
+    const yearEl = document.getElementById('calYear');
+    const prevBtn = document.getElementById('calPrev');
+    const nextBtn = document.getElementById('calNext');
+
+
+    // اگر عناصر وجود داشته باشند، تقویم را فعال کن
+    // If elements exist, initialize calendar
+    if (grid && monthEl && yearEl && prevBtn && nextBtn) {
+
+        const today = new Date();
+        let [jy,jm,jd] = gregorianToJalali(today.getFullYear(), today.getMonth()+1, today.getDate());
+
+        let viewY = jy, viewM = jm;
+
+
+        // ------------------------------------------------------------
+        // تابع رندر تقویم
+        // Calendar render function
+        // ------------------------------------------------------------
+        function render(){
+
+            // نمایش ماه و سال
+            // Display month and year
+            monthEl.textContent = persianMonths[viewM-1];
+            yearEl.textContent = toPersianDigits(viewY);
+
+            // حذف سلول‌های قبلی (به جز هدر ۷تایی)
+            // Remove old cells (except weekday header)
+            while (grid.children.length > 7)
+                grid.removeChild(grid.lastChild);
+
+            // محاسبه روز شروع ماه
+            // Calculate first weekday of month
+            const [gY,gM,gD] = jalaliToGregorian(viewY, viewM, 1);
+            const firstWeekday = new Date(gY, gM-1, gD).getDay();// تبدیل شروع هفته به شنبه
+            // Convert week start to Saturday
+            const mapToShanbehStart = (w)=> (w+1)%7;
+
+            const leading = mapToShanbehStart(firstWeekday);
+            const daysInMonth = jalaliMonthLength(viewY, viewM);
+
+            const prevMonth = viewM===1?12:viewM-1;
+            const prevYear = viewM===1?viewY-1:viewY;
+            const prevDays = jalaliMonthLength(prevYear, prevMonth);
+
+
+            // ------------------------------------------------------------
+            // روزهای ماه قبل (خاکستری)
+            // Previous month days (muted)
+            // ------------------------------------------------------------
+            for(let i=leading-1;i>=0;i--){
+                const el = document.createElement('div');
+                el.className = 'calendar-cell muted';
+                el.textContent = toPersianDigits(prevDays - i);
+                grid.appendChild(el);
+            }
+
+
+            // ------------------------------------------------------------
+            // روزهای ماه جاری
+            // Current month days
+            // ------------------------------------------------------------
+            for(let d=1; d<=daysInMonth; d++){
+                const el = document.createElement('div');
+                el.className = 'calendar-cell';
+
+                // علامت‌گذاری امروز
+                // Highlight today
+                if (viewY===jy && viewM===jm && d===jd)
+                    el.classList.add('today');
+
+                el.setAttribute('data-day', d);
+                el.textContent = toPersianDigits(d);
+                grid.appendChild(el);
+            }
+
+
+            // ------------------------------------------------------------
+            // روزهای ماه بعد برای تکمیل ردیف
+            // Next month days to complete the grid
+            // ------------------------------------------------------------
+            const totalCells = 7 + leading + daysInMonth;
+            const needed = (totalCells%7===0)?0:(7 - (totalCells%7));
+
+            for(let d=1; d<=needed; d++){
+                const el = document.createElement('div');
+                el.className = 'calendar-cell muted';
+                el.textContent = toPersianDigits(d);
+                grid.appendChild(el);
+            }
+        }
+
+
+        // ------------------------------------------------------------
+        // دکمه ماه قبل
+        // Previous month button
+        // ------------------------------------------------------------
+        prevBtn.addEventListener('click', function(){
+            if (viewM===1){ viewM=12; viewY--; }
+            else { viewM--; }
+            render();
+        });
+
+
+        // ------------------------------------------------------------
+        // دکمه ماه بعد
+        // Next month button
+        // ------------------------------------------------------------
+        nextBtn.addEventListener('click', function(){
+            if (viewM===12){ viewM=1; viewY++; }
+            else { viewM++; }
+            render();
+        });
+
+
+        // اجرای اولیه
+        // Initial render
+        render();
+    }
+
+})();
+
+</script>
+</body>
+</html>

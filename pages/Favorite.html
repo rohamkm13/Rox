@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="../pages styles/projects.css">
+</head>
+<body>
+   <div id="page-content">
+<section class="projects-index favorites-page">
+    <h2 class="section-title" data-i18n="favoriteTitle">My Favorites</h2>
+    <div class="projects-grid" id="favoritesGrid"></div>
+</section>
+   </div>
+<script>
+(function() {
+
+  // ------------------------------------------------------------
+  // دریافت لیست علاقه‌مندی‌ها از localStorage
+  // Load favorite items from localStorage
+  // ------------------------------------------------------------
+  function getFavItems() {
+    const raw = localStorage.getItem('myFavorites') || '[]';
+    let ids = [];
+
+    try {
+      ids = JSON.parse(raw);
+    } catch (e) { 
+      return []; 
+    }
+
+    if (!Array.isArray(ids)) return [];
+
+    // تبدیل رشته‌ها به آبجکت استاندارد {id, source}
+    // Normalize items: convert string IDs to object format
+    return ids.map(item =>
+      typeof item === 'string'
+        ? { id: item, source: 'projects' }
+        : item
+    );
+  }
+
+
+  // ------------------------------------------------------------
+  // جمع‌آوری تمام پروژه‌ها، تمپلیت‌ها و کامپوننت‌ها در یک Map
+  // Collect all items (projects, templates, components) into a lookup map
+  // ------------------------------------------------------------
+  function getAllItems() {
+    const data = typeof APP_DATA !== 'undefined'
+      ? APP_DATA
+      : { projects: [], templates: [], components: [] };
+
+    const byId = {};
+
+    [...(data.projects || []),
+     ...(data.templates || []),
+     ...(data.components || [])].forEach(p => {
+      byId[p.id] = p;
+    });
+
+    return byId;
+  }
+
+
+  // ------------------------------------------------------------
+  // رندر کردن صفحه علاقه‌مندی‌ها
+  // Render favorites page
+  // ------------------------------------------------------------
+  function renderFavorites() {
+    const container = document.getElementById('favoritesGrid');
+    if (!container) return;
+
+    const favItems = getFavItems();
+    const allItems = getAllItems();
+
+    // اتصال داده‌های کامل به آیتم‌های فاوریت
+    // Merge favorite IDs with full item data
+    const favProjects = favItems
+      .map(f => allItems[f.id] && { ...allItems[f.id], source: f.source || 'projects' })
+      .filter(Boolean);
+
+    // اگر لیست خالی بود → نمایش پیام خالی
+    // If empty → show empty state
+    if (favProjects.length === 0) {
+      container.innerHTML = `
+        <div class="favorites-empty">
+          <i class="fa-regular fa-heart"></i>
+          <h3 data-i18n="favoriteEmptyTitle">The wishlist is empty.</h3>
+          <p data-i18n="favoriteEmptyText">Click on the heart icon next to each project to display it here.</p>
+          <a href="#" data-page="Projects" class="hero-btn hero-btn-secondary">
+            <span data-i18n="favoriteViewProjects">View projects</span>
+            <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+      `;
+      return;
+    }
+
+    // رندر کارت‌های علاقه‌مندی
+    // Render favorite cards
+    container.innerHTML = favProjects.map(p => `
+      <div class="project-card">
+        <div class="card-header">
+          <img src="${p.img}" alt="${p.title}">
+          
+          <!-- دکمه حذف از علاقه‌مندی‌ها -->
+          <!-- Remove from favorites button -->
+          <button class="fav-btn fav-btn-active" onclick="removeFromFav('${p.id}')" title="حذف از علاقه‌مندی‌ها">
+            <i class="fas fa-heart"></i>
+          </button>
+        </div>
+
+        <div class="project-info">
+          <h3>${p.title}</h3>
+          <p>${p.desc}</p>
+
+          <!-- تگ‌ها -->
+          <!-- Tags -->
+          <div class="tags-row">
+            ${(p.tags || []).map(tag => `<span class="mini-tag">#${tag}</span>`).join('')}
+          </div>
+
+          <!-- لینک مشاهده -->
+          <!-- View link -->
+          <a class="hero-btn hero-btn-secondary" href="${p.addres}">
+            View
+            <i class="fa fa-link"></i>
+          </a>
+        </div>
+      </div>
+    `).join('');
+  }
+
+
+  // ------------------------------------------------------------
+  // حذف آیتم از علاقه‌مندی‌ها
+  // Remove item from favorites
+  // ------------------------------------------------------------
+  window.removeFromFav = function(id) {
+    let favorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+
+    // حذف آیتم با توجه به اینکه ممکن است string یا object باشد
+    // Remove item regardless of string/object format
+    favorites = favorites.filter(f =>
+      (typeof f === 'string' ? f : f.id) !== id
+    );
+
+    localStorage.setItem('myFavorites', JSON.stringify(favorites));
+
+    // رندر مجدد صفحه
+    // Re-render favorites
+    renderFavorites();
+
+    // آپدیت Badge سایدبار
+    // Update sidebar badges
+    if (typeof updateSidebarBadges === 'function') updateSidebarBadges();
+  };
+
+
+  // ------------------------------------------------------------
+  // اجرای اولیه
+  // Initial render
+  // ------------------------------------------------------------
+  renderFavorites();
+
+})();
+</script>
+</body>
+</html>

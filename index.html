@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoX</title>
+  <link rel="shortcut icon" href="RoxLogo.png" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./assete/icons/all.css">
+  <link rel="stylesheet" href="./pages%20styles/setting.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <!-------------- Preloader --------------->
+        <!-- <div id="preloader">
+          <div class="loader-glass">
+            <div class="wireframe-sphere"></div>
+            <div class="wifi-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+           <p>Connecting to Station...</p>
+        </div> -->
+  <!-------------- Sidebar Menu ------------->
+  <aside class="sidebar glass open" id="sidebar">
+
+    <div class="sidebar-header">
+        <img src="RoxLogo.png" alt="">
+      <div class="sidebar-title">RoX</div>
+        <button class="toggle-btn glass" id="sidebarToggle">
+        <i class="fa-solid fa-sidebar-flip"></i>
+        </button>
+    </div>
+  <!---------------- Main ---------------------->
+    <ul class="sidebar-nav">
+        <h3>Main</h3>
+      <li>
+        <a href="#" data-page="home" class="sidebar-link active" >
+          <span class="label" >
+            <i class="fa-solid fa-house"></i>
+          <p  data-i18n="navHome">Home</p>
+          </span>
+       <i class="fa-solid fa-house close-bar"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-page="about" class="sidebar-link" >
+          <span class="label" >
+      <i class="fa-solid fa-user"></i>
+          <p  data-i18n="navAbout">About Me</p>
+          </span>
+            <i class="fa-solid fa-user close-bar"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-page="Contact" class="sidebar-link" >
+          <span class="label" >
+    <i class="fa-solid fa-envelope"></i>
+           <p  data-i18n="navContact">Contact Me</p>
+          </span>
+              <i class="fa-solid fa-envelope close-bar"></i>
+        </a>
+      </li>
+    </ul>
+  <!-- ------------- Projects ----------------->
+     <ul class="sidebar-nav">
+            <h3>All projects</h3>
+      <li>
+        <a href="#" data-page="Projects" class="sidebar-link ">
+          <span class="label" >
+          <i class="fa-solid fa-folder"></i>
+           <p data-i18n="navProjects">Projects</p>
+          </span>
+          <p class="badge" data-count="projects">0</p>
+            <i class="fa-solid fa-folder close-bar"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-page="Templates" class="sidebar-link">
+          <span class="label">
+            <i class="fa-solid fa-palette"></i>
+             <p  data-i18n="navTemplates">Templates</p>
+          </span>
+          <p class="badge" data-count="templates">0</p>
+           <i class="fa-solid fa-palette close-bar"></i>
+        </a>
+      </li>
+           <li>
+        <a href="#" data-page="Components" class="sidebar-link">
+          <span class="label" >
+        <i class="fa-solid fa-file-archive"></i>
+             <p  data-i18n="navComponents">Components</p>
+          </span>
+          <p class="badge" data-count="components">0</p>
+           <i class="fa-solid fa-file-archive close-bar"></i>
+        </a>
+      </li>
+      <li>
+        <a href="#" data-page="Favorite" class="sidebar-link">
+          <span class="label" >
+            <i class="fa-solid fa-heart"></i>
+            <p  data-i18n="navFavorites">Favorites</p>
+          </span>
+          <p class="badge" data-count="favorites">0</p>
+          <i class="fa-solid fa-heart close-bar"></i>
+        </a>
+      </li>
+    </ul>
+  <!-------------------- Tools ---------------->
+    <ul class="sidebar-nav">
+            <h3>Tools</h3>
+      <li>
+        <a href="" data-page="Calendar" class="sidebar-link" >
+          <span class="label" >
+        <i class="fa-solid fa-calendar"></i>
+         <p  data-i18n="navCalendar">Calendar</p>
+          </span>
+             <i class="fa-solid fa-calendar close-bar"></i>
+        </a>
+      </li>
+    </ul>
+  <!-- --------------- System ------------------>
+    <ul class="sidebar-nav without-border">
+            <h3>System</h3>
+      <li>
+        <a href="#" data-page="Settings" class="sidebar-link">
+          <span class="label" >
+          <i class="fa-solid fa-gear"></i>
+        <p  data-i18n="navSettings">Settings</p>
+          </span>
+              <i class="fa-solid fa-gear close-bar"></i>
+        </a>
+      </li>
+    </ul>
+  </aside>
+ 
+  <!--------- Mobile Button Sidebar Menu ------------>
+  <button class="mobile-menu-btn glass" id="mobileMenuBtn">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  
+  <!-------------- Live Status Bar -------------->
+  <div class="live-status-bar">
+    <div class="status-item">
+      <span class="status-dot"></span>
+      <span id="status-text" data-i18n="statusAvailable">Available</span>
+    </div>
+    <div class="separator"></div>
+    <div class="status-item">
+      <i class="far fa-clock"></i>
+      <span id="live-clock">00:00:00</span>
+    </div>
+    <div class="separator"></div>
+    <div class="status-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>Rasht, IR <img src="./assete/images/IranFlag.jpg" alt="" style="width: 12px; height: 10px;"></span>
+    </div>
+  </div>
+  <!--------------- Version Bar --------------------->
+  <div class="version-bar">
+          <div class="version-item">
+            <span class="version-dot"></span>
+            <span id="version-text">VERSION  1 . 0 . 0</span>
+          </div>
+  </div>
+  <!------------- 3 Blobs For Background  ---------->
+  <div class="blobe blobe-1"></div>
+  <div class="blobe blobe-2"></div>
+  <div class="blobe blobe-3"></div>
+ <!-------------------- Cursur ------------------->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+<!-------------------- Render Pages --------------->
+  <div id="content" class="content-shift">
+
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./js/translate.js"></script>
+  <script src="./js/data.js"></script>
+  <script src="./js/routes.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./assete/icons/all.js"></script>
+
+</body>
+</html>
